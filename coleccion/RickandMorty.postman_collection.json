@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "9bb19d14-9cb0-4298-8fe7-656790819d01",
+		"name": "RickandMorty",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "consultar_personajes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"personaje id 2\", function(){\r",
+							"pm.expect(pm.response.text()).to.include(\"Morty Smith\")    \r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}{{personajes}}",
+					"host": [
+						"{{url_base}}{{personajes}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "personajes_por_pagina",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Test del personaje 741\",function(){\r",
+							"var jsonData = pm.response.json();\r",
+							"var detail = jsonData.find(x => x.id== \"741\")\r",
+							"pm.expect(detail.species).to.equal(\"Human\");})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}{{personajes}}{{pagina}}39",
+					"host": [
+						"{{url_base}}{{personajes}}{{pagina}}39"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "consulta_personaje_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El personaje es el esperado \", function(){\r",
+							"pm.expect(pm.response.text()).to.include(\"Summer Smith\")});\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"var schema = {\r",
+							"  \"items\": {\r",
+							"      \"type\": \"object\",\r",
+							"       \"properties\": \r",
+							"       { \r",
+							"           \"id\":{\"type\":\"number\"},\r",
+							"           \"name\":{\"type\":\"string\"},\r",
+							"           \"species\":{\"type\":\"string\"},\r",
+							"           \"status\" : {\"type\" : \"string\"},\r",
+							"           \"type\":{\"type\":\"string\"},\r",
+							"           \"gender\":{\"type\":\"string\"},\r",
+							"           \"origin\":{\"type\" : \"boolean\"},\r",
+							"           \"location\":{\"type\":\"boolean\"},\r",
+							"           \"episode\":{\"type\":\"boolean\"},\r",
+							"           \"url\":{\"type\":\"string\"},\r",
+							"           \"image\":{\"type\":\"string\"},\r",
+							"           \"created\":{\"type\":\"string\"}\r",
+							"           \r",
+							"       }\r",
+							"   }    \r",
+							"};\r",
+							"pm.test(\"Validate schema\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}{{personajes}}3",
+					"host": [
+						"{{url_base}}{{personajes}}3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "respuesta_vacia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Respuesta vacia\", function(){\r",
+							"pm.expect(pm.response.text()).to.include(\"\")});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url_base}}{{personajes}}1000",
+					"host": [
+						"{{url_base}}{{personajes}}1000"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
